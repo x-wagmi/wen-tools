@@ -190,6 +190,7 @@ export function SimpleMint() {
         }, {});
       }
       let imageURL;
+      let imageCID = null;
       if (formData.format === "Token") {
         imageURL = formData.urlField;
       } else {
@@ -199,7 +200,8 @@ export function SimpleMint() {
         }
         toast.info("Uploading the image to IPFS...");
         const authBasic = localStorage.getItem("authBasic");
-        imageURL = "ipfs://" + (await pinImageToCrust(authBasic, formData.image));
+        imageCID = await pinImageToCrust(authBasic, formData.image)
+        imageURL = "ipfs://" + imageCID;
       }
       const nodeURL = getNodeURL();
 
@@ -245,7 +247,7 @@ export function SimpleMint() {
         // );
 
         // V2 here, AtomicTransactionComposer will be used
-        const batchATC = await createARC19AssetMintArrayV2([metadataForIPFS], nodeURL);
+        const batchATC = await createARC19AssetMintArrayV2([metadataForIPFS], nodeURL, [imageCID]);
         setBatchATC(batchATC);
       } else if (formData.format === "ARC69" || formData.format === "Token") {
         metadata.properties = metadata.properties.traits;
