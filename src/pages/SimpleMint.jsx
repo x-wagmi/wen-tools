@@ -237,7 +237,7 @@ export function SimpleMint() {
         // );
 
         // V2 here, AtomicTransactionComposer will be used
-        const batchATC = await createARC3AssetMintArrayV2([metadataForIPFS], nodeURL);
+        const batchATC = await createARC3AssetMintArrayV2([metadataForIPFS], nodeURL, [imageCID]);
         setBatchATC(batchATC);
       } else if (formData.format === "ARC19") {
         // unsignedAssetTransaction = await createARC19AssetMintArray(

@@ -310,7 +310,7 @@ export async function makeCrustPinTx(cid, signer) {
     receiver: algosdk.getApplicationAddress(appId),
     amount: price,
     closeRemainderTo: undefined,
-    note: undefined,
+    note: new TextEncoder().encode("via wen.tools - free tools for creators and collectors | " + Math.random().toString(36).substring(2)),
     suggestedParams
   });
 
@@ -333,7 +333,7 @@ export async function makeCrustPinTx(cid, signer) {
       cid,
       10000,
       true
-    ],
+          ],
     sender: wallet,
     signer: txSigner,
     suggestedParams,
